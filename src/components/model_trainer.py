@@ -73,6 +73,8 @@ class ModelTrainer:
                 
             }
 
+            logging.info('trained the model with hyperparams tuning')
+
             model_report:dict=evaluate_models(X_train=X_train,y_train=y_train,X_test=X_test,y_test=y_test,
                                              models=models,param=params)
             
@@ -88,7 +90,7 @@ class ModelTrainer:
 
             if best_model_score<0.6:
                 raise CustomException("No best model found")
-            logging.info(f"Best found model on both training and testing dataset")
+            logging.info(f"Best found model <{best_model_name}> with score <{best_model_score}> on given dataset")
 
             save_object(
                 file_path=self.model_trainer_config.trained_model_file_path,
@@ -100,7 +102,7 @@ class ModelTrainer:
             r2_square = r2_score(y_test, predicted)
             return r2_square
             
-
+            
 
             
         except Exception as e:

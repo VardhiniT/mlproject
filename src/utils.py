@@ -49,7 +49,7 @@ def evaluate_models(X_train, y_train,X_test,y_test,models,param):
 
             report[list(models.keys())[i]] = test_model_score
 
-        logging.info(f"The Model accuracy - {report}")
+        logging.info(f"A report on the model accuracy - {report}")
 
         return report
 
