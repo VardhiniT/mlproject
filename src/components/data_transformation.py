@@ -88,7 +88,7 @@ class DataTransformation:
 
             preprocessing_obj=self.get_data_transformer_object()
 
-            target_column_name="delay_departure"
+            target_column_name="delay_arrival"
 
             input_feature_train_df = train_df[['TEMPERRATURE_departures', 'WIND_departures','direction_departure','direction_arrival','TEMPERRATURE_arrival','WIND_arrival','delay_departure']]
             target_feature_train_df = train_df[target_column_name]
@@ -111,6 +111,8 @@ class DataTransformation:
 
             train_arr = np.c_[np.array(input_feature_train_df), np.array(target_feature_train_df)]
             test_arr = np.c_[np.array(input_feature_test_df), np.array(target_feature_test_df)]
+
+            print(train_arr.shape)
 
             logging.info(f"Saved preprocessing object.")
 

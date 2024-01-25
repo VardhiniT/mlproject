@@ -2,7 +2,7 @@ import os
 import sys
 from dataclasses import dataclass
 
-
+from catboost import CatBoostRegressor
 from sklearn.ensemble import (
     AdaBoostRegressor,
     GradientBoostingRegressor,
@@ -10,8 +10,8 @@ from sklearn.ensemble import (
 )
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
-#from sklearn.neighbors import KNeighborsRegressor
-#from sklearn.tree import DecisionTreeRegressor
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.tree import DecisionTreeRegressor
 from xgboost import XGBRegressor
 
 from src.exception import CustomException
@@ -39,13 +39,19 @@ class ModelTrainer:
             )
             models = {
                 "Random Forest": RandomForestRegressor(),
+                "Decision Tree": DecisionTreeRegressor(),
                 "Gradient Boosting": GradientBoostingRegressor(),
                 "Linear Regression": LinearRegression(),
-                "AdaBoost Regressor": AdaBoostRegressor(),
                 "XGBRegressor": XGBRegressor(),
+                "CatBoosting Regressor": CatBoostRegressor(verbose=False),
+                "AdaBoost Regressor": AdaBoostRegressor(),
             }
             params={
-                
+                "Decision Tree": {
+                    'criterion':['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
+                    # 'splitter':['best','random'],
+                    # 'max_features':['sqrt','log2'],
+                },
                 "Random Forest":{
                     # 'criterion':['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
                  
@@ -59,12 +65,17 @@ class ModelTrainer:
                     # 'criterion':['squared_error', 'friedman_mse'],
                     # 'max_features':['auto','sqrt','log2'],
                     'n_estimators': [8,16,32,64,128,256]
-                },    
+                },
                 "Linear Regression":{},
                 "XGBRegressor":{
                     'learning_rate':[.1,.01,.05,.001],
                     'n_estimators': [8,16,32,64,128,256]
-                },            
+                },
+                "CatBoosting Regressor":{
+                    'depth': [6,8,10],
+                    'learning_rate': [0.01, 0.05, 0.1],
+                    'iterations': [30, 50, 100]
+                },
                 "AdaBoost Regressor":{
                     'learning_rate':[.1,.01,0.5,.001],
                     # 'loss':['linear','square','exponential'],
@@ -100,6 +111,7 @@ class ModelTrainer:
             r2_square = r2_score(y_test, predicted)
             return r2_square
             
+
 
 
             
