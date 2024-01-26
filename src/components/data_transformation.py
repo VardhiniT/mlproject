@@ -16,7 +16,7 @@ from src.utils import save_object
 
 @dataclass
 class DataTransformationConfig:
-    preprocessor_obj_file_path=os.path.join('artifacts',"proprocessor.pkl")
+    preprocessor_obj_file_path=os.path.join('artifacts',"preprocessor.pkl")
 
 class DataTransformation:
     def __init__(self):
@@ -28,14 +28,8 @@ class DataTransformation:
         
         '''
         try:
-            numerical_columns = ["writing_score", "reading_score"]
-            categorical_columns = [
-                "gender",
-                "race_ethnicity",
-                "parental_level_of_education",
-                "lunch",
-                "test_preparation_course",
-            ]
+            numerical_columns = ['']
+            categorical_columns = ['']
 
             num_pipeline= Pipeline(
                 steps=[
@@ -55,8 +49,8 @@ class DataTransformation:
 
             )
 
-            logging.info(f"Categorical columns: {categorical_columns}")
-            logging.info(f"Numerical columns: {numerical_columns}")
+            # logging.info(f"Categorical columns: {categorical_columns}")
+            # logging.info(f"Numerical columns: {numerical_columns}")
 
             preprocessor=ColumnTransformer(
                 [
@@ -90,12 +84,12 @@ class DataTransformation:
 
             target_column_name="delay_arrival"
 
-            input_feature_train_df = train_df[['TEMPERRATURE_departures', 'WIND_departures','direction_departure','direction_arrival','TEMPERRATURE_arrival','WIND_arrival','delay_departure']]
+            input_feature_train_df = train_df[['TEMPERATURE_departures','Heavy_Precipitation','WIND_departures','Air_Route_Traffic','Aircraft_Maintainance','TEMPERATURE_arrival','WIND_arrival','delay_departure']]
             target_feature_train_df = train_df[target_column_name]
 
             # col_names = data.select_dtypes(include=['int', 'float']).columns
 
-            input_feature_test_df = test_df[['TEMPERRATURE_departures', 'WIND_departures','direction_departure','direction_arrival','TEMPERRATURE_arrival','WIND_arrival','delay_departure']]
+            input_feature_test_df = test_df[['TEMPERATURE_departures','Heavy_Precipitation', 'WIND_departures','Air_Route_Traffic','Aircraft_Maintainance','TEMPERATURE_arrival','WIND_arrival','delay_departure']]
             target_feature_test_df = test_df[target_column_name]
 
             logging.info(

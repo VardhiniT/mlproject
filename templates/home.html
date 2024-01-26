@@ -1,0 +1,80 @@
+<html>
+<body>
+    <div class="login">
+       <h1>Flight Delay Predictor</h1>
+   
+       <form action="{{ url_for('predict_datapoint')}}" method="post">
+        <h1>
+            <legend>Know the Delay Status of Your Flight</legend>
+        </h1>
+        
+        <div class="mb-3">
+            <label class="form-label">Temperature at departed location</label>
+            <input class="form-control" type="number" name="TEMPERATURE_departures"
+                placeholder="Enter here"/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Temperature at arrival location</label>
+            <input class="form-control" type="number" name="TEMPERATURE_arrival"
+                placeholder="Enter here" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Wind magnitude at departed location</label>
+            <input class="form-control" type="number" name="WIND_departures"
+                placeholder="Enter here" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Wind magnitude at arrival location</label>
+            <input class="form-control" type="number" name="WIND_arrival"
+                placeholder="Enter here" />
+        </div>    
+        <div class="mb-3">
+            <label class="form-label">Delay at Departure</label>
+            <input class="form-control" type="number" name="delay_departure"
+                placeholder="Enter here" />
+        </div>    
+        <div class="mb-3">
+            <label class="form-label">Heavy Precipitation</label>
+            <select class="form-control" name="Heavy_Precipitation" placeholder="Enter you Gender" required>
+                <option class="placeholder" selected disabled value="">Choose from below</option>
+                <option value=1>
+                    No
+                </option>
+                <option value=0>
+                    Yes
+                </option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Any Technical issues</label>
+            <select class="form-control" name="Aircraft_Maintainance" placeholder="Enter you Gender" required>
+                <option class="placeholder" selected disabled value="">Choose from below</option>
+                <option value=1>
+                    No
+                </option>
+                <option value=0>
+                    Yes
+                </option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Air Traffic</label>
+            <select class="form-control" name="Air_Route_Traffic" placeholder="Enter you Gender" required>
+                <option class="placeholder" selected disabled value="">Choose from below</option>
+                <option value=1>
+                    No
+                </option>
+                <option value=0>
+                    Yes
+                </option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <input class="btn btn-primary" type="submit" value="Predict Flight Delay" required />
+        </div>
+    </form>
+    <h2>
+       The  prediction is {{results}}
+    </h2>
+   <body>
+</html>
